@@ -6,10 +6,7 @@ class Book extends Component {
 
 	static propTypes = {
 		book: PropTypes.object.isRequired,
-	}
-
-	state = {
-		shelter:''
+		handler: PropTypes.func.isRequired
 	}
 
 	render() {
@@ -19,7 +16,7 @@ class Book extends Component {
 				<div className='book-top'>
 					<img src={book.imageLinks.thumbnail} alt={`cover from {book.title}`} className='book-cover'/>
 					<div className="book-shelf-changer">
-						<select>
+						<select value={book.shelf} onChange= {(event) => this.props.handler(book, event.target.value)}>
 							<option value="move" disabled>Move to...</option>
 							<option value="currentlyReading">Currently Reading</option>
 							<option value="wantToRead">Want to Read</option>
