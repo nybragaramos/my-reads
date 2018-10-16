@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import * as BooksAPI from './utils/BooksAPI'
+import Book from './components/book/Book'
+// import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+class BooksApp extends Component {
+
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      console.log(books);
+      this.setState({ books });
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.state.books.map(book => (
+          <Book key= {book.id} book={book}/>
+        ))}
       </div>
     );
   }
 }
 
-export default App;
+export default BooksApp;
