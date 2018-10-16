@@ -1,5 +1,5 @@
 .book {
-	border: 1px solid #bbb;
+/*	border: 1px solid #bbb;*/
 	margin: 16px;
 	display: flex;
 	flex-direction:  column;
@@ -24,7 +24,7 @@
 
 .book-top {
   position: relative;
-  height: 180px;
+  height: 188px;
   max-width: 140px;
   display: flex;
   align-items: flex-end;

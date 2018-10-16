@@ -14,7 +14,6 @@ class Book extends Component {
 
 	render() {
 		let book = this.props.book;
-		console.log(this.props.book.authors)
 		return (
 			<div className='book'>
 				<div className='book-top'>
@@ -29,7 +28,7 @@ class Book extends Component {
 						</select>
 					</div>
 				</div>
-				<h2 className='book-title'>{book.title}</h2>
+				<h3 className='book-title'>{book.title}</h3>
 				<p className='book-authors'>{book.authors.join(', ')}</p>
 			</div>
 		);

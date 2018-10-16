@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
-import * as BooksAPI from './utils/BooksAPI'
-import Book from './components/book/Book'
+/*import * as BooksAPI from './utils/BooksAPI'
+import Book from './components/book/Book'*/
+import BookList from './components/bookList/BookList'
+
 // import logo from './logo.svg';
 import './App.css';
 
-class BooksApp extends Component {
+const shelves = [
+  "currentlyReading",
+  "wantToRead",
+  "read",
+  ];
 
-  state = {
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      console.log(books);
-      this.setState({ books });
-    });
-  }
-
+class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.books.map(book => (
-          <Book key= {book.id} book={book}/>
-        ))}
+        <header>
+          <h1>My Reads</h1>
+        </header>
+        <ol>
+          {shelves.map(shelf => <li key={shelf}><BookList shelf={shelf} /></li>)}
+        </ol>
       </div>
     );
   }
 }
 
-export default BooksApp;
+export default App;
