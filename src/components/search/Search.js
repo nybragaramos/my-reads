@@ -57,7 +57,7 @@ class Search extends Component {
 				</div>
 				<div className='search-results'>
 					<ol className='shelf-books'>
-						{this.state.showingBooks.map(book => <li key={book.id}><p style={{ width: 100, height: 193 }}>{book.title}</p>{/*console.log(book)*/}</li>)}
+						{this.state.showingBooks.map(book => <li key={book.id}><Book book={book} shelvesHandler={this.props.shelvesHandler}/></li>)}
 					</ol>
 				</div>
 			</div>

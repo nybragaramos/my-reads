@@ -40,22 +40,27 @@ class App extends Component {
   }
 
   shelvesHandler(param, e) {
-    BooksAPI.update(param, e).then(() => {
-      let values = this.state.booksShelves;
-      values.map((value) => {
+
+      let values = this.state.booksShelves.map((value) => {
         if(value.shelf === param.shelf){
-          value.books = value.books.map((book) => {if(book.id === param.id){book.shelf=e;} return book;
-        });
+          value.books = value.books.map((book) => {
+            if(book.id === param.id) {
+              book.shelf=e;
+            }
+            return book;
+          });
+
           value.books = value.books.filter(
             book => book.id !== param.id)
         }
+
         if(value.shelf === e){
           value.books.push(param);
         }
+
         return value;
       });
-      return values;
-    }).then ((values) => this.setState({booksShelves: values}))
+    this.setState({booksShelves: values});
   }
 
   render() {
@@ -76,11 +81,8 @@ class App extends Component {
         </div>
       )}/>
       <Route path='/search' render={({ history }) => (
-          <Search
-            onSearch={() => {        history.push('/');
-            }}
-          />
-        )}/>
+        <Search shelvesHandler = {this.shelvesHandler} onSearch={ () => { history.push('/'); } }/>
+      )}/>
     </div>
     );
   }
