@@ -17,11 +17,11 @@ p,h1,h2,ol,li {
   padding: 0;
 }
 
-.App {
+.shelves {
   text-align: center;
 }
 
-.App header {
+.shelves header {
   background-color:  #A2224F;
   padding: 8px;
   color: white;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI'
 import BookList from './components/bookList/BookList'
+import Search from './components/search/Search'
 import './App.css';
 
 const shelves = [
@@ -59,14 +61,26 @@ class App extends Component {
   render() {
     let booksShelves = this.state.booksShelves;
     return (
-      <div className="App">
-        <header>
+    <div>
+      <Route exact path='/' render= {() => (
+        <div className="shelves">
+          <header>
           <h1>My Reads</h1>
-        </header>
-        <ol>
-          {booksShelves.map(booksShelves => <li key={booksShelves.shelf}><BookList shelf={booksShelves.shelf} books={booksShelves.books} shelvesHandler = {this.shelvesHandler}/></li>)}
-        </ol>
-      </div>
+          </header>
+          <main>
+            <ol>
+              {booksShelves.map(booksShelves => <li key={booksShelves.shelf}><BookList shelf={booksShelves.shelf} books={booksShelves.books} shelvesHandler = {this.shelvesHandler}/></li>)}
+            </ol>
+          </main>
+        </div>
+      )}/>
+      <Route path='/search' render={({ history }) => (
+          <Search
+            onSearch={() => {        history.push('/');
+            }}
+          />
+        )}/>
+    </div>
     );
   }
 }

@@ -1,0 +1,29 @@
+.search-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid #d5d8df;
+  display: flex;
+}
+
+.search-close {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background-image: url('icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  font-size: 0;
+}
+
+.search-books {
+  width: 100%;
+  padding: 20px 20px 20px 0px;
+  font-size: 1.2em;
+  border: 0;
+  outline: none;
+}
+.search-results {
+  padding-top: 60px;
+}
