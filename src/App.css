@@ -38,7 +38,7 @@ p,h1,h2,ol,li {
   border-radius:50%;
   box-shadow: 2px 2px 3px #999;
   font-size: 0;
-  background-color:#0C9;
+  background-color:#0C9; /*e35160*/
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;

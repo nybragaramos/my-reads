@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI'
-import BookList from './components/bookList/BookList'
+import Shelf from './components/shelf/Shelf'
 import Search from './components/search/Search'
 import './App.css';
 
@@ -69,7 +69,7 @@ class App extends Component {
           </header>
           <main>
             <ol>
-              {booksShelves.map(booksShelves => <li key={booksShelves.shelf}><BookList shelf={booksShelves.shelf} books={booksShelves.books} shelvesHandler = {this.shelvesHandler}/></li>)}
+              {booksShelves.map(booksShelves => <li key={booksShelves.shelf}><Shelf shelf={booksShelves.shelf} books={booksShelves.books} shelvesHandler = {this.shelvesHandler}/></li>)}
             </ol>
           </main>
           <Link to='/search' className='search-button'>Add contact</Link>

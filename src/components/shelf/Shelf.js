@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Book from '../book/Book'
-import './BookList.css';
+import './Shelf.css';
 
-class BookList extends Component {
+class Shelf extends Component {
 
 	static propTypes = {
 		shelf: PropTypes.string.isRequired,
@@ -28,4 +28,4 @@ class BookList extends Component {
 	}
 }
 
-export default BookList;
+export default Shelf;
