@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import * as BooksAPI from './utils/BooksAPI'
 import BookList from './components/bookList/BookList'
 import Search from './components/search/Search'
@@ -72,6 +72,7 @@ class App extends Component {
               {booksShelves.map(booksShelves => <li key={booksShelves.shelf}><BookList shelf={booksShelves.shelf} books={booksShelves.books} shelvesHandler = {this.shelvesHandler}/></li>)}
             </ol>
           </main>
+          <Link to='/search' className='search-button'>Add contact</Link>
         </div>
       )}/>
       <Route path='/search' render={({ history }) => (
