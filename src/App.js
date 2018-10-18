@@ -14,15 +14,18 @@ const shelves = [
 class App extends Component {
 
   constructor(props) {
-    super(props)
-    this.shelvesHandler = this.shelvesHandler.bind(this)
+    super(props);
+    this.shelvesHandler = this.shelvesHandler.bind(this);
+    this.booksListHandler = this.booksListHandler.bind(this);
   }
 
   state = {
-    booksShelves: []
+    booksShelves: [],
+    booksList: []
   }
 
   componentDidMount() {
+
     function shelfType(shelfName) {
       return function(element) {
         return element.shelf === shelfName;
@@ -32,15 +35,20 @@ class App extends Component {
     BooksAPI.getAll()
     .then((books) => {    
       this.setState(
-        {booksShelves: shelves.map((shelf) => {
+        {booksList: books, booksShelves: shelves.map((shelf) => {
           return({shelf: shelf, books: books.filter(shelfType(shelf))})
         })
-      })
+      });
     })
   }
 
-  shelvesHandler(param, e) {
+  booksListHandler (list) {
+    if(list) {
+      this.setState({booksList: list});
+    }
+  }
 
+  shelvesHandler(param, e) {
       let values = this.state.booksShelves.map((value) => {
         if(value.shelf === param.shelf){
           value.books = value.books.map((book) => {
@@ -81,7 +89,7 @@ class App extends Component {
         </div>
       )}/>
       <Route path='/search' render={({ history }) => (
-        <Search shelvesHandler = {this.shelvesHandler} onSearch={ () => { history.push('/'); } }/>
+        <Search shelvesHandler = {this.shelvesHandler} booksOnShelves={this.state.booksList} booksListHandler= {this.booksListHandler} onSearch={ () => { history.push('/'); } }/>
       )}/>
     </div>
     );
