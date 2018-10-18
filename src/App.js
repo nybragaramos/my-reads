@@ -49,30 +49,36 @@ class App extends Component {
   }
 
   shelvesHandler(param, e) {
-      let values = this.state.booksShelves.map((value) => {
-        if(value.shelf === param.shelf){
-          value.books = value.books.map((book) => {
-            if(book.id === param.id) {
-              book.shelf=e;
-            }
-            return book;
-          });
 
-          value.books = value.books.filter(
-            book => book.id !== param.id)
-        }
+    let booksShelves = this.state.booksShelves.map((booksShelf) => {
+      /*remove the book from his old shelf*/
+      if(booksShelf.shelf === param.shelf){
+        booksShelf.books = booksShelf.books.map((book) => {
 
-        if(value.shelf === e){
-          value.books.push(param);
-        }
+          if(book.id === param.id) {
+            book.shelf=e;
+          }
+          return book;
+        });
 
-        return value;
-      });
-    this.setState({booksShelves: values});
+        booksShelf.books = booksShelf.books.filter(book => book.id !== param.id);
+      }
+        
+      /*remove the book to his new shelf*/
+      if(booksShelf.shelf === e){
+        booksShelf.books.push(param);
+      }
+
+      return booksShelf;
+    });
+
+    this.setState({booksShelves: booksShelves});
   }
 
   render() {
-    let booksShelves = this.state.booksShelves;
+
+    const booksShelves = this.state.booksShelves;
+
     return (
     <div>
       <Route exact path='/' render= {() => (

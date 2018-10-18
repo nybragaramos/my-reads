@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import * as BooksAPI from './../../utils/BooksAPI';
 import './Search.css';
 
+const SEARCH_TERMS = ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'History', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Program Javascript', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'];
+
 class Search extends Component {
 
 	constructor(props) {
@@ -20,14 +22,14 @@ class Search extends Component {
 
 	state = {
 		query: '',
-		showingBooks: []
+		showingBooks: [],
+		notFound: false
 	}
 
 	searchHandlerShelves(book, shelf){
 
 		if(book.shelf === 'none') {
-			book.shelf=shelf;
-
+			book.shelf = shelf;
 			/*add book do list of books with shelf*/
 			let addBook = this.props.booksOnShelves;
 			addBook.push(book);
@@ -35,9 +37,7 @@ class Search extends Component {
 
 			/*update showingBooks*/
 			let updateShowingBooks = this.state.showingBooks.map((showingBook) => {
-				if(showingBook.id === book.id){
-					return book;
-				} return showingBook;
+				return ((showingBook.id === book.id) ? book : showingBook);
 			});
 
 			this.setState({showingBook: updateShowingBooks});
@@ -56,11 +56,12 @@ class Search extends Component {
 				if(books.length > 0) {
 					
 					let updateBooks = books.map((book) => {
-						const b = this.props.booksOnShelves.find(function (element) {
+						const foundBook = this.props.booksOnShelves.find(function (element) {
 							return element.id === book.id;
 						})
-						if(b) {
-							return b
+
+						if (foundBook) { 
+							return foundBook;
 						} else {
 							book.shelf = 'none';
 							return book;
@@ -69,11 +70,11 @@ class Search extends Component {
 					})
 					this.updateBooks(updateBooks);
 				} else {
-					this.clearQuery();
+					this.notFound();
 				}
 			})
 		} else {
-				this.clearQuery();
+				this.clearBooks();
 		}
 	}
 
@@ -82,26 +83,44 @@ class Search extends Component {
 	}
 
 	updateBooks = (books) => {
-		this.setState({ showingBooks: books});
+		this.setState({ showingBooks: books, notFound: false});	
 	}
 
-	clearQuery =  () => {
-		this.setState({ showingBooks: []});
+	notFound = () => {
+		this.setState({ showingBooks: [], notFound: true});
+	}
+
+	clearBooks =  () => {
+		this.setState({ showingBooks: [], notFound: false});
 	}
 
 	render() {
+		const newBooks = this.state.showingBooks;
+		const notFound = this.state.notFound;
 
 		return (
 			<div>
 				<div className='search-bar'>
-					<Link to='/' className='search-close'>Close</Link>
-					<input className='search-books' type='text' placeholder='Search books by title or author' value={this.state.query} onChange= {(event) => this.updateSearch(event.target.value)}/>
+					<Link to='/' className='search-close' aria-label="Close">Close</Link>
+					<input className='search-books' type='text' placeholder='Search books by title or author' aria-label='Search book by title or author' value={this.state.query} onChange= {(event) => this.updateSearch(event.target.value)}/>
 				</div>
-				<div className='search-results'>
-					<ol className='shelf-books'>
-						{this.state.showingBooks.map(book => <li key={book.id}><Book book={book} shelvesHandler={this.searchHandlerShelves}/></li>)}
+				{newBooks.length > 0 && (
+					<div className='search-results'>
+				
+						<h1>Search returned {newBooks.length} books</h1>
+						<ol className='shelf-books'>
+							{this.state.showingBooks.map(book => <li key={book.id}><Book book={book} shelvesHandler={this.searchHandlerShelves}/></li>)}
+						</ol>
+					</div>
+				)}
+				{notFound && (
+				<div className='not-found'>
+					<h1>Please check the allowed search terms</h1>
+					<ol>
+						{SEARCH_TERMS.map(term => <li key={term}>{term}</li>)}
 					</ol>
 				</div>
+				)}
 			</div>
 		);
 	}

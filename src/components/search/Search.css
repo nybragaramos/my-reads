@@ -4,17 +4,19 @@
   top: 0;
   border-bottom: 1px solid #d5d8df;
   display: flex;
+  z-index: 5;
 }
 
 .search-close {
   display: block;
   width: 60px;
-  height: 60px;
+  height: 63px;
   background-image: url('icons/arrow-back.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 30px;
   font-size: 0;
+  background-color: white;
 }
 
 .search-books {
@@ -24,6 +26,28 @@
   border: 0;
   outline: none;
 }
-.search-results {
-  padding-top: 60px;
+
+.search-results,
+.not-found  {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.search-results h1,
+.not-found  h1 {
+  color: #e7aebf;
+  font-size: 1.5em;
+  padding: 0px 16px;
+}
+
+.not-found ol {
+  display: flex;
+  flex-wrap:  wrap;
+  width: 100%;
+  list-style: none;
+}
+
+.not-found li {
+  max-width: 200px;
+  padding: 16px;
 }
