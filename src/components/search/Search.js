@@ -46,7 +46,8 @@ class Search extends Component {
 	}
 
 	updateSearch = (query) => {
-		this.setState({ query: query });
+
+		this.updateQuery(query);
 
 		if(query) {
 			BooksAPI.search(query).then((books) => {
@@ -71,7 +72,6 @@ class Search extends Component {
 				}
 			})
 		} else {
-			console.log('clearBooks');
 			this.clearBooks();
 		}
 	}
