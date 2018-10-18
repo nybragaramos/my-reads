@@ -46,12 +46,9 @@ class Search extends Component {
 	}
 
 	updateSearch = (query) => {
-		/*Adjust Query to not allow double space*/
-		let newQuery = query.split('  ');
-		query = newQuery.join(' ');
- 		this.updateQuery(query);
+		this.setState({ query: query });
 
-		if(query.length > 0) {
+		if(query) {
 			BooksAPI.search(query).then((books) => {
 				if(books.length > 0) {
 					
@@ -74,7 +71,8 @@ class Search extends Component {
 				}
 			})
 		} else {
-				this.clearBooks();
+			console.log('clearBooks');
+			this.clearBooks();
 		}
 	}
 
@@ -90,8 +88,9 @@ class Search extends Component {
 		this.setState({ showingBooks: [], notFound: true});
 	}
 
-	clearBooks =  () => {
+	clearBooks = () => {
 		this.setState({ showingBooks: [], notFound: false});
+		console.log(this.state.showingBooks);
 	}
 
 	render() {
